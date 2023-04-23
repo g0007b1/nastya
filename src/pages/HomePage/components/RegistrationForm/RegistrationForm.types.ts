@@ -1,5 +1,6 @@
 export type RegistrationDataType = {
-    email: string;
     password: string;
-    login: string;
+    email: string;
+    sex: boolean;
+    age: number;
 };

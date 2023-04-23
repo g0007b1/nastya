@@ -30,7 +30,8 @@
       "api/*": ["api/*"],
       "css/*": ["css/*"],
       "types/*": ["types/*"],
-      "forms/*": ["forms/*"]
+      "forms/*": ["forms/*"],
+      "pages/*": ["pages/*"],
     }
   },
   "include": [

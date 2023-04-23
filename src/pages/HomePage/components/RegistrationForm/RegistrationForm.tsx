@@ -1,34 +1,41 @@
-import { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Box, Button, Container, TextField, Typography } from '@mui/material';
-import { requiredProp } from 'forms/forms.constants';
+import {
+    Box,
+    Button,
+    Card,
+    CardContent,
+    Switch,
+    TextField,
+    Typography,
+} from '@mui/material';
 
 import { useDispatchWithLoader } from 'hooks/useDispatchWithLoader';
+
+import { requiredProp } from '../../../../constants/forms.constants';
+import { registerAccount } from '../../../../redux/auth.slice';
 
 import { type RegistrationDataType } from './RegistrationForm.types';
 
 const RegistrationForm = () => {
-    const {
-        register,
-        handleSubmit,
-        formState: { errors },
-    } = useForm<RegistrationDataType>();
+    const { register, handleSubmit } = useForm<RegistrationDataType>();
 
     const dispatch = useDispatchWithLoader();
 
     const onSubmit = handleSubmit((data) => {
         console.log(data);
+        dispatch(registerAccount(data));
     });
 
     return (
-        <>
-            <Container component="div" maxWidth="xs">
+        <Card sx={{ marginTop: 5, width: 570 }}>
+            <CardContent>
                 <Box
                     sx={{
-                        marginTop: 5,
                         display: 'flex',
                         flexDirection: 'column',
                         alignItems: 'center',
+                        mt: 2,
+                        mb: 2,
                     }}
                 >
                     <Typography component="h1" variant="h5">
@@ -46,7 +53,6 @@ const RegistrationForm = () => {
                             fullWidth
                             autoComplete="email" // TODO добавить валидацию
                             autoFocus
-                            error={!!errors.email}
                             label="Email"
                             {...register('email', requiredProp)}
                         />
@@ -54,35 +60,47 @@ const RegistrationForm = () => {
                             margin="normal"
                             required
                             fullWidth
-                            autoComplete="login"
-                            autoFocus
-                            error={!!errors.login}
-                            label="Логин"
-                            {...register('login', requiredProp)}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
                             label="Пароль"
                             type="password"
-                            id="password"
-                            error={!!errors.password}
                             {...register('password', requiredProp)}
                             autoComplete="current-password"
                         />
+                        <Box
+                            width="100%"
+                            display="flex"
+                            justifyContent="space-between"
+                        >
+                            <Box display="flex" alignItems="center">
+                                <Typography variant="subtitle2">
+                                    Пол: м
+                                </Typography>
+                                <Switch required {...register('sex')} />
+                                <Typography variant="subtitle2">ж</Typography>
+                            </Box>
+                            <Box display="flex" alignItems="center">
+                                <Typography variant="subtitle2">
+                                    Возраст:
+                                </Typography>
+                                <TextField
+                                    required
+                                    {...register('age')}
+                                    type="number"
+                                    variant="standard"
+                                />
+                            </Box>
+                        </Box>
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             sx={{ mt: 3, mb: 2 }}
                         >
-                            Войти
+                            Зарегистрироваться
                         </Button>
                     </Box>
                 </Box>
-            </Container>
-        </>
+            </CardContent>
+        </Card>
     );
 };
 

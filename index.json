@@ -2,9 +2,109 @@
   "users": [
     {
       "email": "izgagin1234567890@gmail.com",
-      "password": "123",
-      "login": "g0007b1",
+      "password": "$2a$10$PKJUr2Zne3bsd17QchHRS.DFhhC.7glSzOSUTQfAI2vK/ZAh1QGGu",
+      "sex": true,
+      "age": "21",
       "id": 1
+    },
+    {
+      "email": "gaga123@gmail.com",
+      "password": "$2a$10$PsARjfn9NA.sonTJiLJHBO2KnFO3gWydn3PSCwhYYvitCnsg5A9NO",
+      "sex": true,
+      "age": "21",
+      "id": 2
+    }
+  ],
+  "tests": [
+    {
+      "name": "Тестовый тест №1",
+      "description": "Это тестовый тест для тестирования возможности создания и прохождения тестов",
+      "withPoints": false,
+      "questions": [
+        {
+          "question": "Ты тест?",
+          "type": "select",
+          "options": [
+            {
+              "label": "Да"
+            },
+            {
+              "label": "Нет"
+            },
+            {
+              "label": "Возможно"
+            }
+          ]
+        },
+        {
+          "question": "Точно не врешь?",
+          "type": "select",
+          "options": [
+            {
+              "label": "Точно"
+            },
+            {
+              "label": "Не вру"
+            }
+          ]
+        },
+        {
+          "question": "Что ты чувствуешь когда врешь?",
+          "type": "multipleSelect",
+          "options": [
+            {
+              "label": "Боль"
+            },
+            {
+              "label": "Страх"
+            },
+            {
+              "label": "Несчастность"
+            }
+          ]
+        },
+        {
+          "question": "Давай расскажи как ты себя чувствуешь вонючка",
+          "type": "string",
+          "options": [
+            {
+              "label": ""
+            }
+          ]
+        }
+      ],
+      "totalFemaleCount": 0,
+      "totalMaleCount": 0,
+      "totalPeopleCount": 0,
+      "averageAge": 0,
+      "owner": 0,
+      "id": 1
+    },
+    {
+      "name": "Новый Тест govna",
+      "description": "govna?",
+      "withPoints": false,
+      "questions": [
+        {
+          "question": "123",
+          "type": "multipleSelect",
+          "options": [
+            {
+              "label": "123"
+            },
+            {
+              "label": "123"
+            }
+          ]
+        }
+      ],
+      "totalFemaleCount": 0,
+      "totalMaleCount": 0,
+      "totalPeopleCount": 0,
+      "averageAge": 0,
+      "owner": 0,
+      "withQuiz": true,
+      "id": 2
     }
   ]
 }

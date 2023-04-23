@@ -6,7 +6,7 @@ import { useAppSelector } from 'redux/hooks';
 
 export const GlobalLoader = () => {
     const isLoading = useAppSelector(selectIsLoading);
-    console.log(isLoading);
+
     if (!isLoading) return null;
 
     return (

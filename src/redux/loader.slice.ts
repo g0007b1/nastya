@@ -1,10 +1,10 @@
 import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
-type inititalStateType = {
+type initialStateType = {
     isLoading: boolean;
 };
 
-const initialState: inititalStateType = {
+const initialState: initialStateType = {
     isLoading: false,
 };
 
