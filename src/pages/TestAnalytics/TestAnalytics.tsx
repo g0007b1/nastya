@@ -83,6 +83,9 @@ const TestAnalytics = () => {
                                 {test && test.name}
                             </Typography>
                             <Typography variant="subtitle1">
+                                Тест прошли: {answers.length} раз
+                            </Typography>
+                            <Typography variant="subtitle1">
                                 Средний возраст: {averageAge} лет
                             </Typography>
                             <Typography variant="subtitle1">
@@ -91,7 +94,8 @@ const TestAnalytics = () => {
                             </Typography>
                             {test && test.withPoints && (
                                 <Typography variant="subtitle1">
-                                    Среднее количество баллов: {averagePoints}
+                                    Среднее количество баллов:{' '}
+                                    {averagePoints.toFixed(2)}
                                 </Typography>
                             )}
                             <Typography variant="subtitle1">
