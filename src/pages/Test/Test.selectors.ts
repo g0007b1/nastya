@@ -5,3 +5,5 @@ export const selectTime = (state: RootState) => state.testSlice.time;
 export const selectAnswers = (state: RootState) => state.testSlice.answers;
 export const selectTotalPoints = (state: RootState) =>
     state.testSlice.totalPoints;
+export const selectPossiblePoints = (state: RootState) =>
+    state.testSlice.possibleTestPoints;

@@ -11,7 +11,7 @@ import {
     selectTime,
     selectTotalPoints,
 } from 'pages/Test/Test.selectors';
-import { getTestPoints } from 'pages/Test/Test.utils';
+import { getPossibleTestPoints, getTestPoints } from 'pages/Test/Test.utils';
 import {
     type AnswersType,
     type AnswerType,
@@ -28,6 +28,7 @@ type initialStateType = {
     answers: TypeOrNull<AnswerType[]>;
     quizAnswers: TypeOrNull<QuizAnswers>;
     totalPoints: number;
+    possibleTestPoints: number;
     time: number;
 };
 
@@ -36,6 +37,7 @@ const initialState: initialStateType = {
     answers: null,
     quizAnswers: null,
     totalPoints: 0,
+    possibleTestPoints: 0,
     time: 0,
 };
 
@@ -84,6 +86,7 @@ const testSlice = createSlice({
             state.answers = action.payload;
             const test = { ...state.test };
             state.totalPoints = getTestPoints(test as TestType, action.payload);
+            state.possibleTestPoints = getPossibleTestPoints(test as TestType);
         },
         setQuizAnswers: (state, action: PayloadAction<QuizAnswers>) => {
             state.quizAnswers = action.payload;

@@ -11,8 +11,12 @@ import {
     Typography,
 } from '@mui/material';
 
+import {
+    selectPossiblePoints,
+    selectTotalPoints,
+} from 'pages/Test/Test.selectors';
 import { sendAnswers } from 'pages/Test/Test.slice';
-import { useAppDispatch } from 'redux/hooks';
+import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { type QuizAnswers } from 'types/answers.types';
 
 import { hardMarks, qualityMarks, understandMarks } from './QuizTest.constants';
@@ -24,6 +28,9 @@ const QuizTest = () => {
 
     const { register, handleSubmit } = useForm<QuizAnswers>();
 
+    const totalPoints = useAppSelector(selectTotalPoints);
+    const possiblePoints = useAppSelector(selectPossiblePoints);
+
     const onSubmit = handleSubmit((data) => {
         dispatch(sendAnswers(data)).then(() => {
             navigate('/home');
@@ -32,6 +39,13 @@ const QuizTest = () => {
     return (
         <>
             <Box component="form" onSubmit={onSubmit}>
+                <Card sx={{ width: 770, marginTop: 2 }}>
+                    <CardContent>
+                        <Typography textAlign="center" variant="h6">
+                            Вы набрали {totalPoints} из {possiblePoints} баллов
+                        </Typography>
+                    </CardContent>
+                </Card>
                 <Card sx={{ width: 770, marginTop: 2 }}>
                     <CardContent>
                         <Typography

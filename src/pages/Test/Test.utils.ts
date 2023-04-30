@@ -16,3 +16,13 @@ export const getTestPoints = (test: TestType, answers: AnswerType[]) => {
     });
     return totalPoints;
 };
+
+export const getPossibleTestPoints = (test: TestType) => {
+    let points = 0;
+    test.questions.forEach((question) => {
+        question.options.forEach((option) => {
+            points += +option.points;
+        });
+    });
+    return points;
+};
