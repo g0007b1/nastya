@@ -17,12 +17,15 @@ import { registerAccount } from '../../../../redux/auth.slice';
 import { type RegistrationDataType } from './RegistrationForm.types';
 
 const RegistrationForm = () => {
-    const { register, handleSubmit } = useForm<RegistrationDataType>();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<RegistrationDataType>();
 
     const dispatch = useDispatchWithLoader();
 
     const onSubmit = handleSubmit((data) => {
-        console.log(data);
         dispatch(registerAccount(data));
     });
 
@@ -53,16 +56,27 @@ const RegistrationForm = () => {
                             fullWidth
                             autoComplete="email" // TODO добавить валидацию
                             autoFocus
+                            error={!!errors.email}
                             label="Email"
-                            {...register('email', requiredProp)}
+                            {...register('email', {
+                                required: true,
+                                validate: (value) =>
+                                    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                                        value
+                                    ),
+                            })}
                         />
                         <TextField
                             margin="normal"
                             required
                             fullWidth
                             label="Пароль"
+                            error={!!errors.password}
                             type="password"
-                            {...register('password', requiredProp)}
+                            {...register('password', {
+                                required: true,
+                                validate: (value) => value.length >= 4,
+                            })}
                             autoComplete="current-password"
                         />
                         <Box
@@ -83,7 +97,7 @@ const RegistrationForm = () => {
                                 </Typography>
                                 <TextField
                                     required
-                                    {...register('age')}
+                                    {...register('age', requiredProp)}
                                     type="number"
                                     variant="standard"
                                 />

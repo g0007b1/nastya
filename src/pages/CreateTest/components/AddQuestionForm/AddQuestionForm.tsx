@@ -42,8 +42,6 @@ const AddQuestionForm: FC<AddQuestionFormType> = ({
         setQuestionType(event.target.value as QuestionTypeType);
     };
 
-    console.log(index);
-
     return (
         <Card sx={{ width: 770, marginTop: 2 }}>
             <CardContent>

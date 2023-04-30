@@ -23,7 +23,6 @@ const LoginForm: FC = () => {
     const dispatch = useDispatchWithLoader();
 
     const onSubmit = handleSubmit((data) => {
-        console.log(data);
         dispatch(login(data));
     });
 

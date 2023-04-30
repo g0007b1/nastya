@@ -20,6 +20,13 @@
       "sex": true,
       "age": "33",
       "id": 3
+    },
+    {
+      "email": "sdf@gaf.ri",
+      "password": "$2a$10$1P6mDj4/dzhXHCZTm.Sglu/g1ts9HOf6R.rUpi7GEgNS/hlSmO4rG",
+      "sex": false,
+      "age": "213",
+      "id": 4
     }
   ],
   "answers": [
