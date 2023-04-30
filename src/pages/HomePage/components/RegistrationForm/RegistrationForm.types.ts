@@ -3,4 +3,5 @@ export type RegistrationDataType = {
     email: string;
     sex: boolean;
     age: number;
+    id: number;
 };

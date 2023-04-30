@@ -10,6 +10,7 @@ import {
     Stepper,
 } from '@mui/material';
 
+import NotFoundCard from 'components/NotFoundCard';
 import { useDispatchWithLoader } from 'hooks/useDispatchWithLoader';
 import QuizTest from 'pages/Test/components/QuizTest';
 import StartStep from 'pages/Test/components/StartStep';
@@ -32,7 +33,7 @@ const Test = () => {
         if (testId && !isNaN(+testId)) dispatch(getTest(+testId));
     }, []);
 
-    if (!test) return <div>NOT FOUND</div>;
+    if (!test) return <NotFoundCard />;
 
     return (
         <Container>

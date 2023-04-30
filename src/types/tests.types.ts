@@ -23,8 +23,4 @@ export type TestType = {
     description: string; // +
     owner: number; // in thunk
     questions: QuestionType[];
-    totalPeopleCount: number; // in thunk
-    totalMaleCount: number; // in thunk
-    totalFemaleCount: number; // in thunk
-    averageAge: number; // in thunk
 };

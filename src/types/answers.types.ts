@@ -15,6 +15,7 @@ export type AnswersType = {
     sex: boolean;
     age: number;
     time: number;
-    userName: string;
     userId: number;
+    userEmail: string;
+    points: number;
 };

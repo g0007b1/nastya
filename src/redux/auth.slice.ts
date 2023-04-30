@@ -29,9 +29,15 @@ const initialState: initialStateType = {
 
 export const registerAccount = createAsyncThunk(
     'registerAccount',
-    async (data: RegistrationDataType) => {
-        const kek = await apiPost('/users', data);
-        console.log(kek);
+    async (data: RegistrationDataType, thunkAPI) => {
+        await apiPost('/users', data);
+        thunkAPI.dispatch(
+            login({
+                email: data.email,
+                password: data.password,
+                rememberMe: true,
+            })
+        );
     }
 );
 
@@ -58,7 +64,6 @@ const authSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(registerAccount.fulfilled, (state, action) => {});
         builder.addCase(login.fulfilled, (state, action) => {
             state.user = action.payload;
             state.isAuth = true;

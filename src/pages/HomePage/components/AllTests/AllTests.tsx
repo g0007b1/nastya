@@ -10,7 +10,6 @@ import { useAppSelector } from '../../../../redux/hooks';
 
 const AllTests = () => {
     const allTests = useAppSelector(selectAllTests);
-    console.log(allTests);
     const dispatchWithLoader = useDispatchWithLoader();
 
     useEffect(() => {
@@ -26,7 +25,7 @@ const AllTests = () => {
                 </CardContent>
             </Card>
             {allTests.map((test) => (
-                <TestItem key={test.id} test={test} />
+                <TestItem key={test.id + Math.random()} test={test} />
             ))}
         </Box>
     );

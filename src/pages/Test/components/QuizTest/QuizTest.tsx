@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import {
     Box,
     Button,
@@ -10,15 +11,23 @@ import {
     Typography,
 } from '@mui/material';
 
+import { sendAnswers } from 'pages/Test/Test.slice';
+import { useAppDispatch } from 'redux/hooks';
 import { type QuizAnswers } from 'types/answers.types';
 
 import { hardMarks, qualityMarks, understandMarks } from './QuizTest.constants';
 
 const QuizTest = () => {
+    const dispatch = useAppDispatch();
+
+    const navigate = useNavigate();
+
     const { register, handleSubmit } = useForm<QuizAnswers>();
 
     const onSubmit = handleSubmit((data) => {
-        console.log(data);
+        dispatch(sendAnswers(data)).then(() => {
+            navigate('/home');
+        });
     });
     return (
         <>

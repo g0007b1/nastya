@@ -1,5 +1,6 @@
 import React from 'react';
 import { useFieldArray, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import {
     Box,
@@ -21,19 +22,23 @@ import { type TestType } from 'types/tests.types';
 import { requiredProp } from '../../constants/forms.constants';
 
 const CreateTest = () => {
+    const navigate = useNavigate();
+
     const { control, register, handleSubmit, watch } = useForm<TestType>();
 
     const dispatch = useDispatchWithLoader();
 
     const withPoints = watch('withPoints');
 
-    const { fields, append, remove, swap, move } = useFieldArray({
+    const { fields, append, remove } = useFieldArray({
         control,
         name: 'questions',
     });
 
     const onSubmit = handleSubmit((data) => {
-        dispatch(createTest(data)).then(() => {});
+        dispatch(createTest(data)).then(() => {
+            navigate('/home');
+        });
     });
 
     const addQuestion = () => {

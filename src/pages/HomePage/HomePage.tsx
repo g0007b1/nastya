@@ -28,6 +28,7 @@ export const HomePage = () => {
                     display: 'flex',
                     flexDirection: 'column',
                     alignItems: 'center',
+                    marginBottom: 3,
                 }}
                 fixed
             >

@@ -41,7 +41,7 @@ const TestStep: FC<TestStepType> = ({ test, setActiveStep }) => {
                     if (question.type === 'select')
                         return (
                             <TestRadioGroup
-                                key={question.question}
+                                key={question.question + String(Math.random())}
                                 questionIndex={index}
                                 question={question}
                                 register={register}
@@ -50,7 +50,7 @@ const TestStep: FC<TestStepType> = ({ test, setActiveStep }) => {
                     if (question.type === 'multipleSelect')
                         return (
                             <TestCheckBoxGroup
-                                key={question.question}
+                                key={question.question + String(Math.random())}
                                 questionIndex={index}
                                 question={question}
                                 register={register}
@@ -59,7 +59,7 @@ const TestStep: FC<TestStepType> = ({ test, setActiveStep }) => {
                     if (question.type === 'string')
                         return (
                             <TestString
-                                key={question.question}
+                                key={question.question + String(Math.random())}
                                 questionIndex={index}
                                 question={question}
                                 register={register}

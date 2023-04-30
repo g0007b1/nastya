@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import HomeIcon from '@mui/icons-material/Home';
 import { AppBar, Box, Button, Toolbar } from '@mui/material';
 
 import { useDispatchWithLoader } from 'hooks/useDispatchWithLoader';
@@ -43,9 +45,8 @@ export const NavBar = () => {
                             color: 'white',
                             textDecoration: 'none',
                         }}
-                        sx={{ flexGrow: 1 }}
                     >
-                        Домой
+                        <HomeIcon />
                     </Button>
                     {isAuth && (
                         <Button
@@ -55,7 +56,7 @@ export const NavBar = () => {
                                 color: 'white',
                                 textDecoration: 'none',
                             }}
-                            sx={{ flexGrow: 1 }}
+                            sx={{ flexGrow: 1, gap: 1 }}
                         >
                             Создать тест
                         </Button>
@@ -66,13 +67,15 @@ export const NavBar = () => {
                     <Box>
                         <Button
                             component={Link}
-                            to="/home"
+                            to={`/profile/${user.id}`}
                             style={{
                                 color: 'white',
                                 textDecoration: 'none',
+                                gap: 3,
                             }}
                         >
                             {user.email}
+                            <AccountCircleIcon />
                         </Button>
                         <Button
                             onClick={onSignOut}

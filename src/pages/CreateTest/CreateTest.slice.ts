@@ -8,6 +8,9 @@ import { apiPost } from 'api/api';
 import { type TypeOrNull } from 'types/general.types';
 import { type TestType } from 'types/tests.types';
 
+import { selectUser } from '../../redux/auth.selectors';
+import { store } from '../../redux/store';
+
 type initialStateType = {
     test: TypeOrNull<TestType>;
 };
@@ -16,18 +19,16 @@ const initialState: initialStateType = {
     test: null,
 };
 
+// http://localhost:3001/tests?owner=2
+
 export const createTest = createAsyncThunk(
     'createTest',
     async (test: TestType) => {
         const testCopy = { ...test };
-        testCopy.totalFemaleCount = 0;
-        testCopy.totalMaleCount = 0;
-        testCopy.totalPeopleCount = 0;
-        testCopy.averageAge = 0;
-        testCopy.owner = 0; // TODO
-        testCopy.withQuiz = true;
-        const response = await apiPost('/tests', testCopy);
-        console.log(testCopy);
+        const user = selectUser(store.getState());
+        testCopy.owner = user ? user.id : 0;
+        testCopy.withQuiz = true; // TODO
+        await apiPost('/tests', testCopy);
     }
 );
 

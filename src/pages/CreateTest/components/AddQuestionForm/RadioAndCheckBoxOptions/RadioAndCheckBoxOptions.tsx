@@ -16,7 +16,8 @@ const RadioAndCheckBoxOptions: FC<RadioAndCheckBoxOptionsType> = ({
     const [options, setOptions] = useState([{ lastId: 0 }]);
 
     const addFields = () => {
-        const newOption = { lastId: options.length };
+        // @ts-expect-error
+        const newOption = { lastId: options.at(-1).lastId + 1 };
         setOptions([...options, newOption]);
     };
 
@@ -52,12 +53,14 @@ const RadioAndCheckBoxOptions: FC<RadioAndCheckBoxOptionsType> = ({
                             variant="standard"
                         />
                     </Box>
-                    <CloseIcon
-                        onClick={() => {
-                            deleteField(index);
-                        }}
-                        color="disabled"
-                    />
+                    {options.length > 1 && (
+                        <CloseIcon
+                            onClick={() => {
+                                deleteField(index);
+                            }}
+                            color="disabled"
+                        />
+                    )}
                     {withPoints && (
                         <Box width={50}>
                             <TextField
@@ -74,6 +77,7 @@ const RadioAndCheckBoxOptions: FC<RadioAndCheckBoxOptionsType> = ({
                     )}
                 </Box>
             ))}
+
             <IconButton
                 onClick={addFields}
                 sx={{ padding: 0 }}

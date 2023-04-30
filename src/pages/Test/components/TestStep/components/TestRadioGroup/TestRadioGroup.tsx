@@ -31,7 +31,7 @@ const TestRadioGroup: FC<TestGroupType> = ({
                         >
                             {options.map((option) => (
                                 <FormControlLabel
-                                    key={option.label}
+                                    key={option.label + String(Math.random())}
                                     value={option.label}
                                     control={<Radio />}
                                     label={option.label}
