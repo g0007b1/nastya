@@ -171,6 +171,25 @@ const TestAnalytics = () => {
                         );
                     return <></>;
                 })}
+            {answers.length > 0 && (
+                <Card sx={{ width: '770px', marginTop: 2 }}>
+                    <CardContent>
+                        <Typography textAlign="center" variant="h6">
+                            Пожелания к тесту
+                        </Typography>
+                        {answers.map((answer, index) => {
+                            return (
+                                <Typography
+                                    key={Math.random()}
+                                    variant="subtitle1"
+                                >
+                                    {index + 1}) {answer.quizAnswers.wishes}
+                                </Typography>
+                            );
+                        })}
+                    </CardContent>
+                </Card>
+            )}
             {isAverage && (
                 <IndividualStatistic
                     test={test as TestType}

@@ -39,13 +39,16 @@ const QuizTest = () => {
     return (
         <>
             <Box component="form" onSubmit={onSubmit}>
-                <Card sx={{ width: 770, marginTop: 2 }}>
-                    <CardContent>
-                        <Typography textAlign="center" variant="h6">
-                            Вы набрали {totalPoints} из {possiblePoints} баллов
-                        </Typography>
-                    </CardContent>
-                </Card>
+                {!isNaN(possiblePoints) && (
+                    <Card sx={{ width: 770, marginTop: 2 }}>
+                        <CardContent>
+                            <Typography textAlign="center" variant="h6">
+                                Вы набрали {totalPoints} из {possiblePoints}{' '}
+                                баллов
+                            </Typography>
+                        </CardContent>
+                    </Card>
+                )}
                 <Card sx={{ width: 770, marginTop: 2 }}>
                     <CardContent>
                         <Typography
@@ -131,11 +134,18 @@ const QuizTest = () => {
                             Было ли у вас достаточно возможностей выбора
                             ответов?
                         </Typography>
-                        <Box>
-                            <TextField
+                        <Box
+                            sx={{ width: 570, display: 'flex', margin: 'auto' }}
+                        >
+                            <Slider
                                 {...register('possibilities')}
-                                multiline
-                                fullWidth
+                                aria-label="Custom marks"
+                                defaultValue={5}
+                                step={1}
+                                valueLabelDisplay="auto"
+                                marks={hardMarks}
+                                min={0}
+                                max={10}
                             />
                         </Box>
                     </CardContent>
@@ -149,9 +159,34 @@ const QuizTest = () => {
                         >
                             Согласны ли вы с результатами теста?
                         </Typography>
+                        <Box
+                            sx={{ width: 570, display: 'flex', margin: 'auto' }}
+                        >
+                            <Slider
+                                {...register('result')}
+                                aria-label="Custom marks"
+                                defaultValue={5}
+                                step={1}
+                                valueLabelDisplay="auto"
+                                marks={hardMarks}
+                                min={0}
+                                max={10}
+                            />
+                        </Box>
+                    </CardContent>
+                </Card>
+                <Card sx={{ width: 770, marginTop: 2 }}>
+                    <CardContent>
+                        <Typography
+                            textAlign="center"
+                            sx={{ marginBottom: 1 }}
+                            variant="subtitle1"
+                        >
+                            Напишите ваши пожелания
+                        </Typography>
                         <Box>
                             <TextField
-                                {...register('result')}
+                                {...register('wishes')}
                                 multiline
                                 fullWidth
                             />

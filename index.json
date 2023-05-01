@@ -53,8 +53,9 @@
         "hard": "7",
         "quality": "1",
         "underStand": "8",
-        "possibilities": "Да",
-        "result": "Ла"
+        "possibilities": "7",
+        "result": "6",
+        "wishes": "Продлолжайте в том же духе!"
       },
       "sex": true,
       "age": "21",
@@ -79,8 +80,9 @@
         "hard": "5",
         "quality": "5",
         "underStand": "5",
-        "possibilities": "asdf",
-        "result": "asdf"
+        "possibilities": "3",
+        "result": "2",
+        "wishes": "Все прекрасно!"
       },
       "sex": true,
       "age": "33",
@@ -105,8 +107,9 @@
         "hard": "3",
         "quality": "7",
         "underStand": "3",
-        "possibilities": "",
-        "result": ""
+        "possibilities": "4",
+        "result": "2",
+        "wishes": "Все плохо!"
       },
       "sex": true,
       "age": "22",
@@ -131,8 +134,9 @@
         "hard": "5",
         "quality": "5",
         "underStand": "5",
-        "possibilities": "",
-        "result": ""
+        "possibilities": "2",
+        "result": "1",
+        "wishes": "Все прекрасно!"
       },
       "sex": true,
       "age": "22",
@@ -155,8 +159,9 @@
         "hard": "10",
         "quality": "10",
         "underStand": "7",
-        "possibilities": "",
-        "result": ""
+        "possibilities": "5",
+        "result": "3",
+        "wishes": "Все прекрасно!"
       },
       "sex": true,
       "age": "22",
@@ -180,8 +185,9 @@
         "hard": "6",
         "quality": "3",
         "underStand": "6",
-        "possibilities": "",
-        "result": ""
+        "possibilities": "4",
+        "result": "2",
+        "wishes": "Все прекрасно!"
       },
       "sex": true,
       "age": "22",
@@ -205,8 +211,9 @@
         "hard": "3",
         "quality": "7",
         "underStand": "7",
-        "possibilities": "",
-        "result": ""
+        "possibilities": "7",
+        "result": "9",
+        "wishes": "Все прекрасно!"
       },
       "sex": true,
       "age": "22",
@@ -230,8 +237,9 @@
         "hard": "6",
         "quality": "9",
         "underStand": "1",
-        "possibilities": "ghjk",
-        "result": "jk"
+        "possibilities": "2",
+        "result": "10",
+        "wishes": "Все прекрасно!"
       },
       "sex": true,
       "age": "22",
@@ -294,129 +302,6 @@
       "owner": 2,
       "withQuiz": true,
       "id": 1
-    },
-    {
-      "name": "Новый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый Тест",
-      "description": "Новый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый ТестНовый Тест",
-      "withPoints": false,
-      "questions": [
-        {
-          "question": "Новый Тест ?",
-          "type": "select",
-          "options": [
-            {
-              "label": "Да"
-            },
-            {
-              "label": "Нет"
-            }
-          ]
-        },
-        {
-          "question": "Новый Тест!!!!",
-          "type": "multipleSelect",
-          "options": [
-            {
-              "label": "Блабла1"
-            },
-            {
-              "label": "22"
-            },
-            {
-              "label": "Три3"
-            }
-          ]
-        }
-      ],
-      "owner": 2,
-      "withQuiz": true,
-      "id": 2
-    },
-    {
-      "name": "Тест на фею",
-      "description": "Я феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ феяЯ фея",
-      "withPoints": false,
-      "questions": [
-        {
-          "question": "Я фея?",
-          "type": "select",
-          "options": [
-            {
-              "label": "Да"
-            },
-            {
-              "label": "Нет"
-            },
-            {
-              "label": ""
-            }
-          ]
-        },
-        {
-          "question": "А ты фея?",
-          "type": "select",
-          "options": [
-            {
-              "label": "Да"
-            },
-            {
-              "label": "Нет"
-            }
-          ]
-        },
-        {
-          "question": "А кто фея?",
-          "type": "multipleSelect",
-          "options": [
-            {
-              "label": "Я"
-            },
-            {
-              "label": "Ты"
-            }
-          ]
-        },
-        {
-          "question": "Опиши какого быть феей",
-          "type": "string",
-          "options": [
-            {
-              "label": ""
-            }
-          ]
-        }
-      ],
-      "owner": 2,
-      "withQuiz": true,
-      "id": 3
-    },
-    {
-      "name": "Новый Тест",
-      "description": "13",
-      "withPoints": false,
-      "questions": [
-        {
-          "question": "123",
-          "type": "select",
-          "options": [
-            {
-              "label": "123"
-            },
-            {
-              "label": ""
-            },
-            {
-              "label": ""
-            },
-            {
-              "label": ""
-            }
-          ]
-        }
-      ],
-      "owner": 2,
-      "withQuiz": true,
-      "id": 4
     },
     {
       "name": "Тестовый тест на тест баллов",

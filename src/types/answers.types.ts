@@ -4,8 +4,9 @@ export type QuizAnswers = {
     hard: number;
     quality: number;
     underStand: number;
-    possibilities: string;
-    result: string;
+    possibilities: number;
+    result: number;
+    wishes: string;
 };
 
 export type AnswersType = {

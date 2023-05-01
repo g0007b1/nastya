@@ -1,19 +1,21 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import {
     Box,
     Button,
     Card,
     CardContent,
     Container,
+    IconButton,
     Typography,
 } from '@mui/material';
 
 import NotFoundCard from 'components/NotFoundCard';
 import { useDispatchWithLoader } from 'hooks/useDispatchWithLoader';
 import { selectProfileTests } from 'pages/ProfilePage/ProfilePage.selectors';
-import { getUserTests } from 'pages/ProfilePage/ProfilePage.slice';
+import { deleteTest, getUserTests } from 'pages/ProfilePage/ProfilePage.slice';
 
 import { selectUser } from '../../redux/auth.selectors';
 import { useAppSelector } from '../../redux/hooks';
@@ -25,6 +27,10 @@ const ProfilePage = () => {
 
     const user = useAppSelector(selectUser);
     const tests = useAppSelector(selectProfileTests);
+
+    const onDeleteTest = (id: number) => () => {
+        dispatch(deleteTest(id));
+    };
 
     useEffect(() => {
         if (userId) dispatch(getUserTests(+userId));
@@ -117,11 +123,20 @@ const ProfilePage = () => {
                                     <Button
                                         variant="contained"
                                         component={Link}
-                                        sx={{ height: '30px', width: '120px' }}
+                                        sx={{
+                                            height: '30px',
+                                            width: '120px',
+                                        }}
                                         to={`/test-analytics/${test.id}`}
                                     >
                                         Аналитика
                                     </Button>
+                                    <IconButton
+                                        onClick={onDeleteTest(test.id)}
+                                        aria-label="delete"
+                                    >
+                                        <DeleteOutlineIcon />
+                                    </IconButton>
                                 </CardContent>
                             </Card>
                         ))}

@@ -41,6 +41,24 @@ const IndividualAnswers: FC<IndividualAnswersType> = ({ answer, test }) => {
                             ).toFixed(2)}{' '}
                         cек.
                     </Typography>
+                    <Typography variant="subtitle1">
+                        Сложность: {answer.quizAnswers.hard}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        Качество: {answer.quizAnswers.quality}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        Понимание: {answer.quizAnswers.underStand}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        Возможности: {answer.quizAnswers.possibilities}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        Согласие: {answer.quizAnswers.result}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                        Пожелание: {answer.quizAnswers.wishes}
+                    </Typography>
                 </CardContent>
             </Card>
             {test.questions.map((question, index) => {

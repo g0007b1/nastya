@@ -3,7 +3,7 @@ import {
     createSlice,
     type PayloadAction,
 } from '@reduxjs/toolkit';
-import { apiGet, apiPost } from 'api/api';
+import { apiDelete, apiGet, apiPost } from 'api/api';
 
 import {
     selectAnswers,

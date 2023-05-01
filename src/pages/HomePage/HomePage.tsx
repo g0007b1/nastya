@@ -50,7 +50,7 @@ export const HomePage = () => {
                                         component="h1"
                                         variant="h5"
                                     >
-                                        Тесты говна дерьма
+                                        Тесты
                                     </Typography>
                                     <Box display="flex" gap={1} marginTop={1}>
                                         <Button

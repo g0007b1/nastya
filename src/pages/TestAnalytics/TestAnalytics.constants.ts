@@ -17,4 +17,10 @@ export const quizBarOptions = {
     },
 };
 
-export const quizBarLabels = ['Сложность', 'Качество', 'Понимание'];
+export const quizBarLabels = [
+    'Сложность',
+    'Качество',
+    'Понимание',
+    'Возможности',
+    'Согласие',
+];
