@@ -1,6 +1,7 @@
 {
   "name": "nastya",
   "version": "0.1.0",
+  "homepage": "https://g0007b1.github.io/nastya",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -48,6 +49,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d build",
     "test": "react-scripts test",
     "server": "json-server -p 3001 index.json -m ./node_modules/json-server-auth",
     "startAll": "concurrently \"npm run start\" \"npm run server\"",
@@ -70,5 +73,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
