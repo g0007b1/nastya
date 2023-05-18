@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     createBrowserRouter,
+    createHashRouter,
     createRoutesFromElements,
     Navigate,
     Route,
@@ -13,7 +14,7 @@ import ProfilePage from 'pages/ProfilePage';
 import Test from 'pages/Test';
 import TestAnalytics from 'pages/TestAnalytics';
 
-export const mainRouter = createBrowserRouter(
+export const mainRouter = createHashRouter(
     createRoutesFromElements(
         <Route path="/" element={<NavBarPage />}>
             <Route path="home" element={<HomePage />} />
