@@ -88,6 +88,15 @@ export const NavBar = () => {
                         </Button>
                     </Box>
                 )}
+                <Button
+                    onClick={onSignOut}
+                    style={{
+                        color: 'white',
+                        textDecoration: 'none',
+                    }}
+                >
+                    Выйти
+                </Button>
             </Toolbar>
         </AppBar>
     );

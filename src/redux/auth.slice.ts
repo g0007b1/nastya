@@ -1,10 +1,15 @@
+import { Simulate } from 'react-dom/test-utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { apiPost } from 'api/api';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { type LoginFormType } from 'forms/../pages/HomePage/components/LoginForm/LoginForm.type';
 
 import { type TypeOrNull } from 'types/general.types';
 
+import { db } from '../firebase';
+
 import { type RegistrationDataType } from 'forms/../pages/HomePage/components/RegistrationForm/RegistrationForm.types';
+import error = Simulate.error;
 
 type JsonServerLoginResponseType = {
     data: {
@@ -30,24 +35,46 @@ const initialState: initialStateType = {
 export const registerAccount = createAsyncThunk(
     'registerAccount',
     async (data: RegistrationDataType, thunkAPI) => {
-        await apiPost('/users', data);
-        thunkAPI.dispatch(
-            login({
-                email: data.email,
-                password: data.password,
-                rememberMe: true,
-            })
-        );
+        const users = collection(db, 'users');
+        let isUserAdded = false;
+        await getDocs(users).then((response) => {
+            response.docs.forEach((doc) => {
+                const { email } = doc.data() as RegistrationDataType;
+                if (data.email === email) isUserAdded = true;
+            });
+        });
+        if (!isUserAdded) {
+            await addDoc(users, data);
+            await thunkAPI.dispatch(
+                login({
+                    email: data.email,
+                    password: data.password,
+                    rememberMe: true,
+                })
+            );
+        }
     }
 );
 
 export const login = createAsyncThunk('login', async (data: LoginFormType) => {
-    const response: JsonServerLoginResponseType = await apiPost('/login', data);
-    if (data.rememberMe) {
-        localStorage.setItem('email', data.email);
-        localStorage.setItem('password', data.password);
+    // const response: JsonServerLoginResponseType = await apiPost('/login', data);
+    let currUser: TypeOrNull<RegistrationDataType> = null;
+    const users = collection(db, 'users');
+    await getDocs(users).then((response) => {
+        response.docs.forEach((doc) => {
+            const { email, password } = doc.data() as RegistrationDataType;
+            if (data.email === email && data.password === password)
+                currUser = doc.data() as RegistrationDataType;
+        });
+    });
+    if (currUser) {
+        if (data.rememberMe) {
+            localStorage.setItem('email', data.email);
+            localStorage.setItem('password', data.password);
+        }
+        return currUser;
     }
-    return response.data.user;
+    return currUser;
 });
 
 const authSlice = createSlice({
@@ -65,8 +92,10 @@ const authSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder.addCase(login.fulfilled, (state, action) => {
-            state.user = action.payload;
-            state.isAuth = true;
+            if (action.payload) {
+                state.user = action.payload;
+                state.isAuth = true;
+            }
         });
     },
 });
