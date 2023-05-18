@@ -20,7 +20,13 @@ import { sendAnswers } from 'pages/Test/Test.slice';
 import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { type QuizAnswers } from 'types/answers.types';
 
-import { hardMarks, qualityMarks, understandMarks } from './QuizTest.constants';
+import {
+    hardMarks,
+    possibilitiesMarks,
+    qualityMarks,
+    resultMarks,
+    understandMarks,
+} from './QuizTest.constants';
 import { requiredProp } from '../../../../constants/forms.constants';
 import { selectUser } from '../../../../redux/auth.selectors';
 
@@ -200,7 +206,7 @@ const QuizTest = () => {
                                 defaultValue={5}
                                 step={1}
                                 valueLabelDisplay="auto"
-                                marks={hardMarks}
+                                marks={possibilitiesMarks}
                                 min={0}
                                 max={10}
                             />
@@ -225,7 +231,7 @@ const QuizTest = () => {
                                 defaultValue={5}
                                 step={1}
                                 valueLabelDisplay="auto"
-                                marks={hardMarks}
+                                marks={resultMarks}
                                 min={0}
                                 max={10}
                             />

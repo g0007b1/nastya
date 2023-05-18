@@ -13,6 +13,36 @@ export const hardMarks = [
     },
 ];
 
+export const possibilitiesMarks = [
+    {
+        value: 0,
+        label: 'Недостаточно',
+    },
+    {
+        value: 5,
+        label: 'Средне',
+    },
+    {
+        value: 10,
+        label: 'Достаточно',
+    },
+];
+
+export const resultMarks = [
+    {
+        value: 0,
+        label: 'Не согласен',
+    },
+    {
+        value: 5,
+        label: 'Частично согласен',
+    },
+    {
+        value: 10,
+        label: 'Согласен',
+    },
+];
+
 export const qualityMarks = [
     {
         value: 0,
