@@ -74,7 +74,6 @@ export const sendAnswers = createAsyncThunk<void, QuizAnswers>(
         const totalPoints = selectTotalPoints(store.getState());
 
         const answersObject = Object.assign({}, answers2);
-        console.log(answersObject);
 
         if (test && answers2) {
             const answerObject: AnswersType = {
@@ -88,11 +87,8 @@ export const sendAnswers = createAsyncThunk<void, QuizAnswers>(
                 userEmail: user ? user.email : arg.email ? arg.email : '',
                 points: totalPoints || 0,
             };
-            console.log(answerObject);
 
-            await addDoc(answers, answerObject).then(() => {
-                console.log('GOVNO');
-            });
+            await addDoc(answers, answerObject);
         }
     }
 );

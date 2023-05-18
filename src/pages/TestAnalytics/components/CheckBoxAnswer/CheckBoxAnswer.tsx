@@ -27,10 +27,6 @@ const CheckBoxAnswer: FC<AnalyticsAnswerType> = ({
         }
     });
 
-    useEffect(() => {
-        console.log(answers);
-    }, [answers]);
-
     return (
         <Card
             sx={{
