@@ -1,6 +1,6 @@
 import React, { type FC } from 'react';
 import { Pie } from 'react-chartjs-2';
-import { Box, Card, CardContent } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 
 import { type AnalyticsAnswerType } from 'pages/TestAnalytics/TestAnalytics.types';
 
@@ -32,7 +32,14 @@ const RadioAnswerBar: FC<AnalyticsAnswerType> = ({
                 justifyContent: 'center',
             }}
         >
-            <CardContent>
+            <CardContent
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    gap: 2,
+                }}
+            >
                 <Box width="300px">
                     <Pie
                         data={{
@@ -69,11 +76,15 @@ const RadioAnswerBar: FC<AnalyticsAnswerType> = ({
                                 },
                                 title: {
                                     display: true,
-                                    text: question.question,
                                 },
                             },
                         }}
                     />
+                </Box>
+                <Box>
+                    <Typography textAlign="center" variant="subtitle2">
+                        {question.question}
+                    </Typography>
                 </Box>
             </CardContent>
         </Card>

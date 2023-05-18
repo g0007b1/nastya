@@ -62,7 +62,7 @@ const TestAnalytics = () => {
             dispatch(getAnswers(testId));
             dispatch(getTestForAnalytics(testId));
         }
-    }, []);
+    }, [testId]);
 
     return (
         <Container

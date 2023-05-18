@@ -73,20 +73,26 @@ export const sendAnswers = createAsyncThunk<void, QuizAnswers>(
         const time = selectTime(store.getState());
         const totalPoints = selectTotalPoints(store.getState());
 
+        const answersObject = Object.assign({}, answers2);
+        console.log(answersObject);
+
         if (test && answers2) {
             const answerObject: AnswersType = {
                 testId: test.id,
-                answers: answers2,
+                answers: answersObject,
                 quizAnswers,
                 sex: user ? user.sex : arg.sex ? arg.sex : false,
                 age: user ? user.age : arg.age ? arg.age : 0,
                 time,
                 userId: user ? user.email : arg.email ? arg.email : '',
                 userEmail: user ? user.email : arg.email ? arg.email : '',
-                points: totalPoints,
+                points: totalPoints || 0,
             };
+            console.log(answerObject);
 
-            await addDoc(answers, answerObject);
+            await addDoc(answers, answerObject).then(() => {
+                console.log('GOVNO');
+            });
         }
     }
 );

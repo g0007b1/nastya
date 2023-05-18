@@ -1,6 +1,6 @@
-import React, { type FC } from 'react';
+import React, { type FC, useEffect } from 'react';
 import { Pie } from 'react-chartjs-2';
-import { Box, Card, CardContent } from '@mui/material';
+import { Box, Card, CardContent, Typography } from '@mui/material';
 
 import { type AnalyticsAnswerType } from 'pages/TestAnalytics/TestAnalytics.types';
 
@@ -18,12 +18,18 @@ const CheckBoxAnswer: FC<AnalyticsAnswerType> = ({
     });
 
     answers.forEach((answer) => {
-        // @ts-expect-error
-        answer.answers[questionIndex].forEach((option) => {
-            if (data[labels.findIndex((str) => str === option)] >= 0)
-                data[labels.findIndex((str) => str === option)] += 1;
-        });
+        if (typeof answer.answers[questionIndex] !== 'string') {
+            // @ts-expect-error
+            answer.answers[questionIndex].forEach((option) => {
+                if (data[labels.findIndex((str) => str === option)] >= 0)
+                    data[labels.findIndex((str) => str === option)] += 1;
+            });
+        }
     });
+
+    useEffect(() => {
+        console.log(answers);
+    }, [answers]);
 
     return (
         <Card
@@ -34,7 +40,14 @@ const CheckBoxAnswer: FC<AnalyticsAnswerType> = ({
                 justifyContent: 'center',
             }}
         >
-            <CardContent>
+            <CardContent
+                sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    gap: 2,
+                }}
+            >
                 <Box width="300px">
                     <Pie
                         data={{
@@ -71,11 +84,15 @@ const CheckBoxAnswer: FC<AnalyticsAnswerType> = ({
                                 },
                                 title: {
                                     display: true,
-                                    text: question.question,
                                 },
                             },
                         }}
                     />
+                </Box>
+                <Box>
+                    <Typography textAlign="center" variant="subtitle2">
+                        {question.question}
+                    </Typography>
                 </Box>
             </CardContent>
         </Card>
