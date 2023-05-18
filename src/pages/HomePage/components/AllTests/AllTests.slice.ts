@@ -1,7 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { apiGet } from 'api/api';
+import { collection, getDocs } from 'firebase/firestore';
 
 import { type TestType } from 'types/tests.types';
+
+import { db } from '../../../../firebase';
 
 type initialStateType = {
     tests: TestType[];
@@ -11,13 +13,17 @@ const initialState: initialStateType = {
     tests: [],
 };
 
-type TestsResponseType = {
-    data: TestType[];
-};
-
 export const getAllTests = createAsyncThunk('getAllTests', async () => {
-    const { data }: TestsResponseType = await apiGet('/tests');
-    return data;
+    const tests = collection(db, 'tests');
+    const array: TestType[] = [];
+    await getDocs(tests).then((response) => {
+        response.docs.forEach((doc) => {
+            const test = doc.data() as TestType;
+            test.id = doc.id;
+            array.push(test);
+        });
+    });
+    return array;
 });
 
 const allTestsSlice = createSlice({

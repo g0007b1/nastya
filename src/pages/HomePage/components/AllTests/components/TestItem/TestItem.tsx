@@ -7,7 +7,7 @@ import { type TestItemType } from 'pages/HomePage/components/AllTests/components
 const TestItem: FC<TestItemType> = ({ test }) => {
     const navigate = useNavigate();
 
-    const onClickGoToTest = (testId: number) => () => {
+    const onClickGoToTest = (testId: string) => () => {
         navigate(`/test/${testId}`);
     };
 

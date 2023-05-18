@@ -3,7 +3,7 @@ import {
     createSlice,
     type PayloadAction,
 } from '@reduxjs/toolkit';
-import { apiDelete, apiGet, apiPost } from 'api/api';
+import { addDoc, collection, doc, getDoc } from 'firebase/firestore';
 
 import {
     selectAnswers,
@@ -20,6 +20,7 @@ import {
 import { type TypeOrNull } from 'types/general.types';
 import { type TestType } from 'types/tests.types';
 
+import { db } from '../../firebase';
 import { selectUser } from '../../redux/auth.selectors';
 import { store } from '../../redux/store';
 
@@ -41,36 +42,51 @@ const initialState: initialStateType = {
     time: 0,
 };
 
-export const getTest = createAsyncThunk<TestType, number>(
+export const getTest = createAsyncThunk<TestType, string>(
     'getTest',
     async (arg) => {
-        const { data } = await apiGet(`/tests/${arg}`);
-        return data;
+        const test = doc(db, 'tests', arg);
+        const response = await getDoc(test);
+        const testObj = response.data() as TestType;
+        testObj.id = arg;
+        return testObj;
     }
 );
 
 export const sendAnswers = createAsyncThunk<void, QuizAnswers>(
     'sendAnswers',
     async (arg) => {
+        const answers = collection(db, 'answers');
+
+        const quizAnswers: QuizAnswers = {
+            hard: arg.hard,
+            quality: arg.quality,
+            underStand: arg.underStand,
+            possibilities: arg.possibilities,
+            result: arg.result,
+            wishes: arg.wishes,
+        };
+
         const test = selectTest(store.getState());
-        const answers = selectAnswers(store.getState());
+        const answers2 = selectAnswers(store.getState());
         const user = selectUser(store.getState());
         const time = selectTime(store.getState());
         const totalPoints = selectTotalPoints(store.getState());
 
-        if (test && answers && user) {
+        if (test && answers2) {
             const answerObject: AnswersType = {
                 testId: test.id,
-                answers,
-                quizAnswers: arg,
-                sex: user.sex,
-                age: user.age,
+                answers: answers2,
+                quizAnswers,
+                sex: user ? user.sex : arg.sex ? arg.sex : false,
+                age: user ? user.age : arg.age ? arg.age : 0,
                 time,
-                userId: user.id,
-                userEmail: user.email,
+                userId: user ? user.email : arg.email ? arg.email : '',
+                userEmail: user ? user.email : arg.email ? arg.email : '',
                 points: totalPoints,
             };
-            await apiPost('/answers', answerObject);
+
+            await addDoc(answers, answerObject);
         }
     }
 );
@@ -88,9 +104,6 @@ const testSlice = createSlice({
             state.totalPoints = getTestPoints(test as TestType, action.payload);
             state.possibleTestPoints = getPossibleTestPoints(test as TestType);
         },
-        setQuizAnswers: (state, action: PayloadAction<QuizAnswers>) => {
-            state.quizAnswers = action.payload;
-        },
     },
     extraReducers: (builder) => {
         builder.addCase(getTest.fulfilled, (state, action) => {
@@ -99,6 +112,6 @@ const testSlice = createSlice({
     },
 });
 
-export const { setTime, setAnswers, setQuizAnswers } = testSlice.actions;
+export const { setTime, setAnswers } = testSlice.actions;
 
 export default testSlice.reducer;

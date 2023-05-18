@@ -59,8 +59,8 @@ const TestAnalytics = () => {
 
     useEffect(() => {
         if (testId) {
-            dispatch(getAnswers(+testId));
-            dispatch(getTestForAnalytics(+testId));
+            dispatch(getAnswers(testId));
+            dispatch(getTestForAnalytics(testId));
         }
     }, []);
 
@@ -86,7 +86,7 @@ const TestAnalytics = () => {
                                 Тест прошли: {answers.length} раз
                             </Typography>
                             <Typography variant="subtitle1">
-                                Средний возраст: {averageAge} лет
+                                Средний возраст: {averageAge.toFixed(2)} лет
                             </Typography>
                             <Typography variant="subtitle1">
                                 Среднее время прохождения:{' '}

@@ -30,7 +30,7 @@ const Test = () => {
     const [activeStep, setActiveStep] = useState(0);
 
     useEffect(() => {
-        if (testId && !isNaN(+testId)) dispatch(getTest(+testId));
+        if (testId) dispatch(getTest(testId));
     }, []);
 
     if (!test) return <NotFoundCard />;

@@ -53,8 +53,6 @@
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",
     "test": "react-scripts test",
-    "server": "json-server -p 3001 index.json -m ./node_modules/json-server-auth",
-    "startAll": "concurrently \"npm run start\" \"npm run server\"",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {

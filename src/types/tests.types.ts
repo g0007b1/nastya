@@ -16,11 +16,11 @@ export type QuestionType = {
 };
 
 export type TestType = {
-    id: number; // auto
+    id: string; // auto
     withQuiz: boolean; // in thunk
     name: string; // +
     withPoints: boolean;
     description: string; // +
-    owner: number; // in thunk
+    owner: string; // in thunk
     questions: QuestionType[];
 };

@@ -1,6 +1,4 @@
-import { Simulate } from 'react-dom/test-utils';
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { apiPost } from 'api/api';
 import { addDoc, collection, getDocs } from 'firebase/firestore';
 import { type LoginFormType } from 'forms/../pages/HomePage/components/LoginForm/LoginForm.type';
 
@@ -9,14 +7,6 @@ import { type TypeOrNull } from 'types/general.types';
 import { db } from '../firebase';
 
 import { type RegistrationDataType } from 'forms/../pages/HomePage/components/RegistrationForm/RegistrationForm.types';
-import error = Simulate.error;
-
-type JsonServerLoginResponseType = {
-    data: {
-        accessToken: string;
-        user: RegistrationDataType;
-    };
-};
 
 type initialStateType = {
     isAuth: boolean;

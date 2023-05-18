@@ -7,16 +7,19 @@ export type QuizAnswers = {
     possibilities: number;
     result: number;
     wishes: string;
+    age?: number;
+    sex?: boolean;
+    email?: string;
 };
 
 export type AnswersType = {
-    testId: number;
+    testId: string;
     answers: AnswerType[];
     quizAnswers: QuizAnswers;
     sex: boolean;
     age: number;
     time: number;
-    userId: number;
+    userId: string;
     userEmail: string;
     points: number;
 };

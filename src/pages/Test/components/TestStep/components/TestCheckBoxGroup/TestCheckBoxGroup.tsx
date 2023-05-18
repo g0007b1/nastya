@@ -26,7 +26,7 @@ const TestCheckBoxGroup: FC<TestGroupType> = ({
                     <FormGroup>
                         {options.map((option, index) => (
                             <FormControlLabel
-                                key={option.label}
+                                key={option.label + String(Math.random())}
                                 value={option.label}
                                 control={
                                     <Checkbox defaultChecked={index === 0} />

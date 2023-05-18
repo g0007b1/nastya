@@ -1,7 +1,18 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { apiDelete, apiGet } from 'api/api';
+import {
+    collection,
+    deleteDoc,
+    doc,
+    getDocs,
+    query,
+    where,
+} from 'firebase/firestore';
 
 import { type TestType } from 'types/tests.types';
+
+import { db } from '../../firebase';
+import { selectUser } from '../../redux/auth.selectors';
+import { store } from '../../redux/store';
 
 type initialStateType = {
     tests: TestType[];
@@ -11,19 +22,31 @@ const initialState: initialStateType = {
     tests: [],
 };
 
-export const deleteTest = createAsyncThunk<number, number>(
+export const deleteTest = createAsyncThunk<string, string>(
     'deleteTest',
     async (arg) => {
-        await apiDelete(`/tests/${arg}`);
+        const docRef = doc(db, 'tests', arg);
+        await deleteDoc(docRef);
         return arg;
     }
 );
 
-export const getUserTests = createAsyncThunk<TestType[], number>(
+export const getUserTests = createAsyncThunk<TestType[], void>(
     'getUserTests',
     async (arg) => {
-        const { data } = await apiGet(`/tests?owner=${arg}`);
-        return data;
+        const user = selectUser(store.getState());
+        const q = query(
+            collection(db, 'tests'),
+            where('owner', '==', user?.email)
+        );
+        const querySnapshot = await getDocs(q);
+        const testArray: TestType[] = [];
+        querySnapshot.forEach((doc) => {
+            const testObj = doc.data() as TestType;
+            testObj.id = doc.id;
+            testArray.push(testObj);
+        });
+        return testArray;
     }
 );
 

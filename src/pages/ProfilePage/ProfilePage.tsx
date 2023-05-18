@@ -28,13 +28,13 @@ const ProfilePage = () => {
     const user = useAppSelector(selectUser);
     const tests = useAppSelector(selectProfileTests);
 
-    const onDeleteTest = (id: number) => () => {
+    const onDeleteTest = (id: string) => () => {
         dispatch(deleteTest(id));
     };
 
     useEffect(() => {
-        if (userId) dispatch(getUserTests(+userId));
-    }, []);
+        if (userId) dispatch(getUserTests());
+    }, [user]);
 
     return (
         <Container>
@@ -85,7 +85,7 @@ const ProfilePage = () => {
                             </CardContent>
                         </Card>
                         {tests.map((test) => (
-                            <Card key={test.id}>
+                            <Card key={String(Math.random())}>
                                 <CardContent
                                     sx={{
                                         paddingBottom: '16px !important',

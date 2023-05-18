@@ -1,33 +1,48 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { apiGet } from 'api/api';
+import {
+    collection,
+    doc,
+    getDoc,
+    getDocs,
+    query,
+    where,
+} from 'firebase/firestore';
 
 import { type AnswersType } from 'types/answers.types';
 import { type TypeOrNull } from 'types/general.types';
 import { type TestType } from 'types/tests.types';
 
+import { db } from '../../firebase';
+
 type initialStateType = {
     answers: AnswersType[];
     test: TypeOrNull<TestType>;
 };
-// answers?testId=1
+
 const initialState: initialStateType = {
     answers: [],
     test: null,
 };
 
-export const getAnswers = createAsyncThunk<AnswersType[], number>(
+export const getAnswers = createAsyncThunk<AnswersType[], string>(
     'getAnswers',
     async (arg) => {
-        const { data } = await apiGet(`/answers?testId=${arg}`);
-        return data;
+        const q = query(collection(db, 'answers'), where('testId', '==', arg));
+        const querySnapshot = await getDocs(q);
+        const answersArray: AnswersType[] = [];
+        querySnapshot.forEach((doc) => {
+            answersArray.push(doc.data() as AnswersType);
+        });
+        return answersArray;
     }
 );
 
-export const getTestForAnalytics = createAsyncThunk<TestType, number>(
+export const getTestForAnalytics = createAsyncThunk<TestType, string>(
     'getTestForAnalytics',
     async (arg) => {
-        const { data } = await apiGet(`/tests/${arg}`);
-        return data;
+        const test = doc(db, 'tests', arg);
+        const response = await getDoc(test);
+        return response.data() as TestType;
     }
 );
 

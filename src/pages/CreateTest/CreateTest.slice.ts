@@ -3,11 +3,12 @@ import {
     createSlice,
     type PayloadAction,
 } from '@reduxjs/toolkit';
-import { apiPost } from 'api/api';
+import { addDoc, collection } from 'firebase/firestore';
 
 import { type TypeOrNull } from 'types/general.types';
 import { type TestType } from 'types/tests.types';
 
+import { db } from '../../firebase';
 import { selectUser } from '../../redux/auth.selectors';
 import { store } from '../../redux/store';
 
@@ -19,16 +20,15 @@ const initialState: initialStateType = {
     test: null,
 };
 
-// http://localhost:3001/tests?owner=2
-
 export const createTest = createAsyncThunk(
     'createTest',
     async (test: TestType) => {
+        const tests = collection(db, 'tests');
         const testCopy = { ...test };
         const user = selectUser(store.getState());
-        testCopy.owner = user ? user.id : 0;
+        testCopy.owner = user ? user.email : '';
         testCopy.withQuiz = true; // TODO
-        await apiPost('/tests', testCopy);
+        await addDoc(tests, testCopy);
     }
 );
 

@@ -7,6 +7,7 @@ import {
     Card,
     CardContent,
     Slider,
+    Switch,
     TextField,
     Typography,
 } from '@mui/material';
@@ -20,14 +21,21 @@ import { useAppDispatch, useAppSelector } from 'redux/hooks';
 import { type QuizAnswers } from 'types/answers.types';
 
 import { hardMarks, qualityMarks, understandMarks } from './QuizTest.constants';
+import { requiredProp } from '../../../../constants/forms.constants';
+import { selectUser } from '../../../../redux/auth.selectors';
 
 const QuizTest = () => {
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate();
 
-    const { register, handleSubmit } = useForm<QuizAnswers>();
+    const {
+        register,
+        handleSubmit,
+        formState: { errors },
+    } = useForm<QuizAnswers>();
 
+    const user = useAppSelector(selectUser);
     const totalPoints = useAppSelector(selectTotalPoints);
     const possiblePoints = useAppSelector(selectPossiblePoints);
 
@@ -36,6 +44,7 @@ const QuizTest = () => {
             navigate('/home');
         });
     });
+
     return (
         <>
             <Box component="form" onSubmit={onSubmit}>
@@ -46,6 +55,54 @@ const QuizTest = () => {
                                 Вы набрали {totalPoints} из {possiblePoints}{' '}
                                 баллов
                             </Typography>
+                        </CardContent>
+                    </Card>
+                )}
+                {!user && (
+                    <Card sx={{ width: 770, marginTop: 2 }}>
+                        <CardContent>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                autoComplete="email" // TODO добавить валидацию
+                                autoFocus
+                                error={!!errors.email}
+                                label="Email"
+                                {...register('email', {
+                                    required: true,
+                                    validate: (value) =>
+                                        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                                            value ?? ''
+                                        ),
+                                })}
+                            />
+                            <Box
+                                width="100%"
+                                display="flex"
+                                justifyContent="space-between"
+                            >
+                                <Box display="flex" alignItems="center">
+                                    <Typography variant="subtitle2">
+                                        Пол: м
+                                    </Typography>
+                                    <Switch required {...register('sex')} />
+                                    <Typography variant="subtitle2">
+                                        ж
+                                    </Typography>
+                                </Box>
+                                <Box display="flex" alignItems="center">
+                                    <Typography variant="subtitle2">
+                                        Возраст:
+                                    </Typography>
+                                    <TextField
+                                        required
+                                        {...register('age', requiredProp)}
+                                        type="number"
+                                        variant="standard"
+                                    />
+                                </Box>
+                            </Box>
                         </CardContent>
                     </Card>
                 )}
