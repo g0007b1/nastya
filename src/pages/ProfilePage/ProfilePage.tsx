@@ -23,8 +23,6 @@ import { useAppSelector } from '../../redux/hooks';
 const ProfilePage = () => {
     const dispatch = useDispatchWithLoader();
 
-    const { userId } = useParams();
-
     const user = useAppSelector(selectUser);
     const tests = useAppSelector(selectProfileTests);
 
@@ -33,12 +31,12 @@ const ProfilePage = () => {
     };
 
     useEffect(() => {
-        if (userId) dispatch(getUserTests());
+        dispatch(getUserTests());
     }, [user]);
 
     return (
         <Container>
-            {user && userId && +userId === user.id ? (
+            {user ? (
                 <Box
                     sx={{
                         paddingTop: 5,

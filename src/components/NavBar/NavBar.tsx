@@ -67,7 +67,7 @@ export const NavBar = () => {
                     <Box>
                         <Button
                             component={Link}
-                            to={`/profile/${user.id}`}
+                            to="/profile/1"
                             style={{
                                 color: 'white',
                                 textDecoration: 'none',
