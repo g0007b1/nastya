@@ -92,6 +92,26 @@ const CreateTest = () => {
                                 с баллами
                             </Typography>
                             <Switch {...register('withPoints')} />
+                            {withPoints && (
+                                <Box
+                                    display="flex"
+                                    flexDirection="row"
+                                    alignItems="center"
+                                    width="150px"
+                                    gap={2}
+                                >
+                                    <Typography variant="subtitle2">
+                                        макс:
+                                    </Typography>
+                                    <TextField
+                                        variant="standard"
+                                        type="number"
+                                        defaultValue={0}
+                                        multiline
+                                        {...register('maxPoints', requiredProp)}
+                                    />
+                                </Box>
+                            )}
                         </Box>
                     </CardContent>
                 </Card>

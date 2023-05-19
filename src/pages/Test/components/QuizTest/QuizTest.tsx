@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import {
@@ -14,6 +14,7 @@ import {
 
 import {
     selectPossiblePoints,
+    selectTest,
     selectTotalPoints,
 } from 'pages/Test/Test.selectors';
 import { sendAnswers } from 'pages/Test/Test.slice';
@@ -44,12 +45,17 @@ const QuizTest = () => {
     const user = useAppSelector(selectUser);
     const totalPoints = useAppSelector(selectTotalPoints);
     const possiblePoints = useAppSelector(selectPossiblePoints);
+    const test = useAppSelector(selectTest);
 
     const onSubmit = handleSubmit((data) => {
         dispatch(sendAnswers(data)).then(() => {
             navigate('/home');
         });
     });
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <>
@@ -58,7 +64,12 @@ const QuizTest = () => {
                     <Card sx={{ width: 770, marginTop: 2 }}>
                         <CardContent>
                             <Typography textAlign="center" variant="h6">
-                                Вы набрали {totalPoints} из {possiblePoints}{' '}
+                                Вы набрали {totalPoints} из{' '}
+                                {test
+                                    ? test.maxPoints
+                                        ? test.maxPoints
+                                        : possiblePoints
+                                    : possiblePoints}{' '}
                                 баллов
                             </Typography>
                         </CardContent>

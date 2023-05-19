@@ -18,6 +18,7 @@ export type QuestionType = {
 export type TestType = {
     id: string; // auto
     withQuiz: boolean; // in thunk
+    maxPoints?: number;
     name: string; // +
     withPoints: boolean;
     description: string; // +
