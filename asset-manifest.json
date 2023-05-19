@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/nastya/static/css/main.17b10c4b.css",
-    "main.js": "/nastya/static/js/main.4bb6aecc.js",
+    "main.js": "/nastya/static/js/main.cdfe90d8.js",
     "index.html": "/nastya/index.html",
     "main.17b10c4b.css.map": "/nastya/static/css/main.17b10c4b.css.map",
-    "main.4bb6aecc.js.map": "/nastya/static/js/main.4bb6aecc.js.map"
+    "main.cdfe90d8.js.map": "/nastya/static/js/main.cdfe90d8.js.map"
   },
   "entrypoints": [
     "static/css/main.17b10c4b.css",
-    "static/js/main.4bb6aecc.js"
+    "static/js/main.cdfe90d8.js"
   ]
 }
