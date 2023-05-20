@@ -1,5 +1,5 @@
 import React from 'react';
-import { CircularProgress } from '@mui/material';
+import { Backdrop, CircularProgress } from '@mui/material';
 
 import { selectIsLoading } from 'components/GlobalLoader/GlobalLoader.selectors';
 import { useAppSelector } from 'redux/hooks';
@@ -10,20 +10,13 @@ export const GlobalLoader = () => {
     if (!isLoading) return null;
 
     return (
-        <div
-            style={{
-                position: 'absolute',
-                height: '100vh',
-                width: '100vw',
-                display: 'flex',
-                zIndex: '999999',
-                alignItems: 'center',
-                justifyContent: 'center',
-                backgroundColor: 'hsla(0,0%,100%,.5)',
-            }}
+        <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={isLoading}
+            onClick={() => {}}
         >
-            <CircularProgress />
-        </div>
+            <CircularProgress color="inherit" />
+        </Backdrop>
     );
 };
 

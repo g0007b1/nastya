@@ -11,14 +11,14 @@ import { type RegistrationDataType } from 'forms/../pages/HomePage/components/Re
 type initialStateType = {
     isAuth: boolean;
     user: TypeOrNull<RegistrationDataType>;
-    error: TypeOrNull<string>;
+    error: boolean;
     registerSuccess: boolean;
 };
 
 const initialState: initialStateType = {
     isAuth: false,
     user: null,
-    error: null,
+    error: false,
     registerSuccess: false,
 };
 
@@ -30,7 +30,10 @@ export const registerAccount = createAsyncThunk(
         await getDocs(users).then((response) => {
             response.docs.forEach((doc) => {
                 const { email } = doc.data() as RegistrationDataType;
-                if (data.email === email) isUserAdded = true;
+                if (data.email === email) {
+                    thunkAPI.dispatch(toggleErrorThunk());
+                    isUserAdded = true;
+                }
             });
         });
         if (!isUserAdded) {
@@ -46,8 +49,17 @@ export const registerAccount = createAsyncThunk(
     }
 );
 
+export const toggleErrorThunk = createAsyncThunk(
+    'toggleErrorThunk',
+    async (_, thunkAPI) => {
+        thunkAPI.dispatch(toggleError());
+        setTimeout(() => {
+            thunkAPI.dispatch(toggleError());
+        }, 5000);
+    }
+);
+
 export const login = createAsyncThunk('login', async (data: LoginFormType) => {
-    // const response: JsonServerLoginResponseType = await apiPost('/login', data);
     let currUser: TypeOrNull<RegistrationDataType> = null;
     const users = collection(db, 'users');
     await getDocs(users).then((response) => {
@@ -76,8 +88,11 @@ const authSlice = createSlice({
             localStorage.removeItem('password');
             state.isAuth = false;
             state.user = null;
-            state.error = null;
+            state.error = false;
             state.registerSuccess = false;
+        },
+        toggleError: (state) => {
+            state.error = !state.error;
         },
     },
     extraReducers: (builder) => {
@@ -90,6 +105,6 @@ const authSlice = createSlice({
     },
 });
 
-export const { signOut } = authSlice.actions;
+export const { signOut, toggleError } = authSlice.actions;
 
 export default authSlice.reducer;

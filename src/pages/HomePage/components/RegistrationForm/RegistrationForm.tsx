@@ -1,5 +1,7 @@
+import React from 'react';
 import { useForm } from 'react-hook-form';
 import {
+    Alert,
     Box,
     Button,
     Card,
@@ -12,7 +14,9 @@ import {
 import { useDispatchWithLoader } from 'hooks/useDispatchWithLoader';
 
 import { requiredProp } from '../../../../constants/forms.constants';
+import { selectError } from '../../../../redux/auth.selectors';
 import { registerAccount } from '../../../../redux/auth.slice';
+import { useAppSelector } from '../../../../redux/hooks';
 
 import { type RegistrationDataType } from './RegistrationForm.types';
 
@@ -25,96 +29,108 @@ const RegistrationForm = () => {
 
     const dispatch = useDispatchWithLoader();
 
+    const error = useAppSelector(selectError);
+    console.log(error);
+
     const onSubmit = handleSubmit((data) => {
         dispatch(registerAccount(data));
     });
 
     return (
-        <Card sx={{ marginTop: 5, width: 570 }}>
-            <CardContent>
-                <Box
-                    sx={{
-                        display: 'flex',
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                        mt: 2,
-                        mb: 2,
-                    }}
-                >
-                    <Typography component="h1" variant="h5">
-                        Регистрация
-                    </Typography>
+        <>
+            <Card sx={{ marginTop: 5, width: 570 }}>
+                <CardContent>
                     <Box
-                        component="form"
-                        onSubmit={onSubmit}
-                        noValidate
-                        sx={{ mt: 1 }}
+                        sx={{
+                            display: 'flex',
+                            flexDirection: 'column',
+                            alignItems: 'center',
+                            mt: 2,
+                            mb: 2,
+                        }}
                     >
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            autoComplete="email" // TODO добавить валидацию
-                            autoFocus
-                            error={!!errors.email}
-                            label="Email"
-                            {...register('email', {
-                                required: true,
-                                validate: (value) =>
-                                    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
-                                        value
-                                    ),
-                            })}
-                        />
-                        <TextField
-                            margin="normal"
-                            required
-                            fullWidth
-                            label="Пароль"
-                            error={!!errors.password}
-                            type="password"
-                            {...register('password', {
-                                required: true,
-                                validate: (value) => value.length >= 4,
-                            })}
-                            autoComplete="current-password"
-                        />
+                        <Typography component="h1" variant="h5">
+                            Регистрация
+                        </Typography>
                         <Box
-                            width="100%"
-                            display="flex"
-                            justifyContent="space-between"
+                            component="form"
+                            onSubmit={onSubmit}
+                            noValidate
+                            sx={{ mt: 1 }}
                         >
-                            <Box display="flex" alignItems="center">
-                                <Typography variant="subtitle2">
-                                    Пол: м
-                                </Typography>
-                                <Switch required {...register('sex')} />
-                                <Typography variant="subtitle2">ж</Typography>
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                autoComplete="email" // TODO добавить валидацию
+                                autoFocus
+                                error={!!errors.email}
+                                label="Email"
+                                {...register('email', {
+                                    required: true,
+                                    validate: (value) =>
+                                        /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(
+                                            value
+                                        ),
+                                })}
+                            />
+                            <TextField
+                                margin="normal"
+                                required
+                                fullWidth
+                                label="Пароль"
+                                error={!!errors.password}
+                                type="password"
+                                {...register('password', {
+                                    required: true,
+                                    validate: (value) => value.length >= 4,
+                                })}
+                                autoComplete="current-password"
+                            />
+                            <Box
+                                width="100%"
+                                display="flex"
+                                justifyContent="space-between"
+                            >
+                                <Box display="flex" alignItems="center">
+                                    <Typography variant="subtitle2">
+                                        Пол: м
+                                    </Typography>
+                                    <Switch required {...register('sex')} />
+                                    <Typography variant="subtitle2">
+                                        ж
+                                    </Typography>
+                                </Box>
+                                <Box display="flex" alignItems="center">
+                                    <Typography variant="subtitle2">
+                                        Возраст:
+                                    </Typography>
+                                    <TextField
+                                        required
+                                        {...register('age', requiredProp)}
+                                        type="number"
+                                        variant="standard"
+                                    />
+                                </Box>
                             </Box>
-                            <Box display="flex" alignItems="center">
-                                <Typography variant="subtitle2">
-                                    Возраст:
-                                </Typography>
-                                <TextField
-                                    required
-                                    {...register('age', requiredProp)}
-                                    type="number"
-                                    variant="standard"
-                                />
-                            </Box>
+                            <Button
+                                type="submit"
+                                fullWidth
+                                variant="contained"
+                                sx={{ mt: 3, mb: 2 }}
+                            >
+                                Зарегистрироваться
+                            </Button>
                         </Box>
-                        <Button
-                            type="submit"
-                            fullWidth
-                            variant="contained"
-                            sx={{ mt: 3, mb: 2 }}
-                        >
-                            Зарегистрироваться
-                        </Button>
                     </Box>
+                </CardContent>
+            </Card>
+            {error && (
+                <Box marginTop="10px">
+                    <Alert severity="error">Эта почта уже занята.</Alert>
                 </Box>
-            </CardContent>
-        </Card>
+            )}
+        </>
     );
 };
 
